@@ -15,3 +15,5 @@ run
 *.rar
 *.zip
 *.class
+build.bat
+/bin/

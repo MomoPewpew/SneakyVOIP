@@ -12,9 +12,9 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.2.5"
+version = "1.0.0"
 group= "net.gliby.voicechat"
-archivesBaseName = "Voice Chat Reloaded"
+archivesBaseName = "SneakyVOIP"
 
 compileJava {
     targetCompatibility = JavaVersion.VERSION_1_8

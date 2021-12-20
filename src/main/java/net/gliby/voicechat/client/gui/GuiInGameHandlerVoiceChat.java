@@ -5,7 +5,6 @@ import net.gliby.voicechat.client.VoiceChatClient;
 import net.gliby.voicechat.client.debug.Statistics;
 import net.gliby.voicechat.client.sound.ClientStream;
 import net.gliby.voicechat.client.textures.IndependentGUITexture;
-import net.gliby.voicechat.common.MathUtility;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
