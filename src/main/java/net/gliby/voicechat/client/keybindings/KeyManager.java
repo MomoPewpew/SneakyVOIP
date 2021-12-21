@@ -39,7 +39,7 @@ public class KeyManager {
     }
 
     public void init() {
-        this.keyEvents.add(new KeySpeakEvent(this.voiceChat, EnumBinding.SPEAK, 47, false));
+        this.keyEvents.add(new KeySpeakEvent(this.voiceChat, EnumBinding.SPEAK, 21, false));
         this.keyEvents.add(new KeyOpenOptionsEvent(this.voiceChat, EnumBinding.OPEN_GUI_OPTIONS, 52, false));
         this.registerKeyBindings();
         MinecraftForge.EVENT_BUS.register(this);
