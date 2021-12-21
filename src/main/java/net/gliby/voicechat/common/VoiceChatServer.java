@@ -25,7 +25,7 @@ import java.net.ServerSocket;
 import java.util.Random;
 
 public class VoiceChatServer {
-    protected static final Logger LOGGER = LogManager.getLogger("Voice Chat Mod");
+    protected static final Logger LOGGER = LogManager.getLogger("SneakyVOIP");
     private VoiceServer voiceServer;
     private Thread voiceServerThread;
     public ServerNetwork serverNetwork;
@@ -167,7 +167,7 @@ public class VoiceChatServer {
     public void aboutToStartServer(FMLServerAboutToStartEvent e) {
         MinecraftForge.EVENT_BUS.register(new ServerConnectionHandler(this));
         this.serverSettings = new ServerSettings(this);
-        this.configurationDirectory = new File("config/gliby_vc");
+        this.configurationDirectory = new File("config/SneakyVOIP");
 
         if (!this.configurationDirectory.exists()) {
             this.configurationDirectory.mkdir();

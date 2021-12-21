@@ -119,7 +119,7 @@ public class VoiceChatClient extends VoiceChatServer {
     public void preInitClient(FMLPreInitializationEvent event) {
         new UpdatedSoundManager();
         modMetadata = event.getModMetadata();
-        File configurationDirectory = new File(event.getModConfigurationDirectory(), "gliby_vc");
+        File configurationDirectory = new File(event.getModConfigurationDirectory(), "SneakyVOIP");
 
         if (!configurationDirectory.exists()) {
             configurationDirectory.mkdir();
