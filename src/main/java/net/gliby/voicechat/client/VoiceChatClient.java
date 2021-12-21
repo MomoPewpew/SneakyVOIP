@@ -136,7 +136,8 @@ public class VoiceChatClient extends VoiceChatServer {
         this.specialPlayers.put("smith70831", 7);
         this.specialPlayers.put("XxNotexX0", 8);
         this.specialPlayers.put("TheHaxman2", 9);
-        soundManager = new ClientStreamManager(Minecraft.getMinecraft(), this);
+        Minecraft mc = Minecraft.getMinecraft();
+        soundManager = new ClientStreamManager(mc, this);
         soundManager.init();
     }
 
