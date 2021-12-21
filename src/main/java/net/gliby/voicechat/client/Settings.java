@@ -20,12 +20,12 @@ public class Settings {
     private Device inputDevice;
     private float worldVolume = 1.0F;
     private float inputBoost = 0.0F;
-    private float uiOpacity = 1.0F;
+    private float uiOpacity = 0.0F;
     private int speakMode = 0;
     private int encodingMode = 0;
     private int minimumQuality = 0;
     private int maximumQuality = 10;
-    private float encodingQuality = 0.6F;
+    private float encodingQuality = 1.0F;
     private UIPosition uiPositionSpeak;
     private UIPosition uiPositionPlate;
     private boolean perceptualEnchantment = true;
@@ -33,8 +33,8 @@ public class Settings {
     private boolean snooperEnabled = false;
     private boolean volumeControl = true;
     private int maxSoundDistance = 63;
-    private boolean voicePlatesAllowed = true;
-    private boolean voiceIconsAllowed = true;
+    private boolean voicePlatesAllowed = false;
+    private boolean voiceIconsAllowed = false;
     private int bufferSize = 144;
     private int modPackId = 1;
     private final Configuration configuration;
