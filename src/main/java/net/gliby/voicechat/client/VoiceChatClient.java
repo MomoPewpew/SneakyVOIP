@@ -127,15 +127,6 @@ public class VoiceChatClient extends VoiceChatServer {
         this.settings = new Settings(new File(configurationDirectory, "ClientSettings.ini"));
         this.settings.init();
         this.keyManager = new KeyManager(this);
-        this.specialPlayers.put("theGliby", 1);
-        this.specialPlayers.put("Rinto", 1);
-        this.specialPlayers.put("DanielSturk", 1);
-        this.specialPlayers.put("CraftAeternalis", 3);
-        this.specialPlayers.put("YETSHADOW", 5);
-        this.specialPlayers.put("McJackson3180", 6);
-        this.specialPlayers.put("smith70831", 7);
-        this.specialPlayers.put("XxNotexX0", 8);
-        this.specialPlayers.put("TheHaxman2", 9);
         Minecraft mc = Minecraft.getMinecraft();
         soundManager = new ClientStreamManager(mc, this);
         soundManager.init();
