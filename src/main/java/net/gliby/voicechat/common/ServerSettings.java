@@ -7,7 +7,7 @@ import java.io.UnsupportedEncodingException;
 
 public class ServerSettings {
     private ServerConfiguration configuration;
-    private int soundDist = 64;
+    private int soundDist = 8;
     private int udpPort = 0;
     private int bufferSize = 128;
     private int advancedNetworkType = 0;
