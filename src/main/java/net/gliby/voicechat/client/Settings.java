@@ -32,7 +32,7 @@ public class Settings {
     private boolean setupNeeded;
     private boolean snooperEnabled = false;
     private boolean volumeControl = true;
-    private int maxSoundDistance = 63;
+    private int maxSoundDistance = 8;
     private boolean voicePlatesAllowed = false;
     private boolean voiceIconsAllowed = false;
     private int bufferSize = 144;
