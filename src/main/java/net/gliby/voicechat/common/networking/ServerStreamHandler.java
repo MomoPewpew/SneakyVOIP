@@ -27,7 +27,9 @@ public class ServerStreamHandler {
 
         switch (event.stream.chatMode) {
             case 0:
-                event.streamManager.feedWithinEntityWithRadius(event.stream, event.voiceLet, this.voiceChat.getServerSettings().getSoundDistance());
+            	int entityID = event.stream.player.getEntityId();
+            	float mult = voiceChat.serverNetwork.dataManager.getMaxTalkDistanceMultiplier(entityID);
+                event.streamManager.feedWithinEntityWithRadius(event.stream, event.voiceLet, (int) (mult * voiceChat.getServerSettings().getSoundDistance()));
                 break;
             case 1:
                 event.streamManager.feedStreamToWorld(event.stream, event.voiceLet);

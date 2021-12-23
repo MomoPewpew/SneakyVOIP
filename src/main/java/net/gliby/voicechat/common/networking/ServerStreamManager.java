@@ -26,6 +26,7 @@ public class ServerStreamManager {
     public List<UUID> mutedPlayers;
     public EntityHandler entityHandler;
     volatile boolean running;
+    private ConcurrentHashMap<Integer, Float> maxTalkDistanceMultipliers;
 
     ServerStreamManager(VoiceChatServer voiceChat) {
         this.voiceChat = voiceChat;
@@ -208,4 +209,16 @@ public class ServerStreamManager {
         this.receivedEntityData.clear();
         this.streaming.clear();
     }
+
+	public Float getMaxTalkDistanceMultiplier(int entityID) {
+		if (!this.maxTalkDistanceMultipliers.contains(entityID)) {
+			this.maxTalkDistanceMultipliers.put(entityID, 1.0F);
+		}
+
+		return maxTalkDistanceMultipliers.get(entityID);
+	}
+
+	public void setMaxTalkDistanceMultiplier(int entityID, float mult) {
+		this.maxTalkDistanceMultipliers.put(entityID, mult);
+	}
 }
