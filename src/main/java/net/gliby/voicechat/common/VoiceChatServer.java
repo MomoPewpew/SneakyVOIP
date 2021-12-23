@@ -3,6 +3,7 @@ package net.gliby.voicechat.common;
 import net.gliby.voicechat.VoiceChat;
 import net.gliby.voicechat.common.api.VoiceChatAPI;
 import net.gliby.voicechat.common.commands.CommandChatMode;
+import net.gliby.voicechat.common.commands.CommandTalkRange;
 import net.gliby.voicechat.common.commands.CommandVoiceMute;
 import net.gliby.voicechat.common.networking.ServerNetwork;
 import net.gliby.voicechat.common.networking.voiceservers.MinecraftVoiceServer;
@@ -131,7 +132,7 @@ public class VoiceChatServer {
     }
 
     public void preInitServer(FMLServerStartingEvent event) {
-        event.registerServerCommand(new CommandVoiceMute());
+        //event.registerServerCommand(new CommandVoiceMute());
         event.registerServerCommand(new CommandChatMode());
     }
 
