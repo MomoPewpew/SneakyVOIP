@@ -134,6 +134,7 @@ public class VoiceChatServer {
     public void preInitServer(FMLServerStartingEvent event) {
         //event.registerServerCommand(new CommandVoiceMute());
         event.registerServerCommand(new CommandChatMode());
+        event.registerServerCommand(new CommandTalkRange());
     }
 
     private Thread startVoiceServer() {
