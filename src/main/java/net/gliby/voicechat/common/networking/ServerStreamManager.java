@@ -215,10 +215,14 @@ public class ServerStreamManager {
 			this.maxTalkDistanceMultipliers.put(entityID, 1.0F);
 		}
 
-		return maxTalkDistanceMultipliers.get(entityID);
+		return this.maxTalkDistanceMultipliers.get(entityID);
 	}
 
 	public void setMaxTalkDistanceMultiplier(int entityID, float mult) {
 		this.maxTalkDistanceMultipliers.put(entityID, mult);
+	}
+
+	public ConcurrentHashMap<Integer, Float> getMaxTalkDistanceMultipliers() {
+		return this.maxTalkDistanceMultipliers;
 	}
 }

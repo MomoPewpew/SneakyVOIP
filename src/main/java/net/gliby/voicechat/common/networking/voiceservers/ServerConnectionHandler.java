@@ -3,15 +3,13 @@ package net.gliby.voicechat.common.networking.voiceservers;
 import com.mojang.authlib.GameProfile;
 import net.gliby.voicechat.VoiceChat;
 import net.gliby.voicechat.common.VoiceChatServer;
+import net.gliby.voicechat.common.networking.packets.MinecraftClientTalkdistancePacket;
 import net.gliby.voicechat.common.networking.packets.MinecraftClientVoiceAuthenticatedServer;
 import net.gliby.voicechat.common.networking.packets.MinecraftClientVoiceServerPacket;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.relauncher.Side;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.security.MessageDigest;
@@ -19,6 +17,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerConnectionHandler {
     private final VoiceChatServer voiceChat;
@@ -36,7 +35,7 @@ public class ServerConnectionHandler {
             this.onConnected(event.player);
         }
     }
-    
+
     @SubscribeEvent
     public void onDisconnect(PlayerEvent.PlayerLoggedOutEvent event) {
         if (!event.player.world.isRemote) {
@@ -63,6 +62,12 @@ public class ServerConnectionHandler {
             VoiceChat.getDispatcher().sendTo(new MinecraftClientVoiceAuthenticatedServer(this.voiceChat.getServerSettings().canShowVoicePlates(), this.voiceChat.getServerSettings().canShowVoiceIcons(), this.voiceChat.getServerSettings().getMinimumSoundQuality(), this.voiceChat.getServerSettings().getMaximumSoundQuality(), this.voiceChat.getServerSettings().getBufferSize(), this.voiceChat.getServerSettings().getSoundDistance(), this.voiceChat.getVoiceServer().getType().ordinal(), this.voiceChat.getServerSettings().getUDPPort(), hash, this.voiceChat.serverSettings.isUsingProxy() ? this.voiceChat.serverNetwork.getAddress() : ""), player);
         } else
             VoiceChat.getDispatcher().sendTo(new MinecraftClientVoiceServerPacket(this.voiceChat.getServerSettings().canShowVoicePlates(), this.voiceChat.getServerSettings().canShowVoiceIcons(), this.voiceChat.getServerSettings().getMinimumSoundQuality(), this.voiceChat.getServerSettings().getMaximumSoundQuality(), this.voiceChat.getServerSettings().getBufferSize(), this.voiceChat.getServerSettings().getSoundDistance(), this.voiceChat.getVoiceServer().getType().ordinal()), player);
+
+        ConcurrentHashMap<Integer, Float> map = voiceChat.serverNetwork.dataManager.getMaxTalkDistanceMultipliers();
+        for (int entityID : map.keySet()) {
+        	VoiceChat.getDispatcher().sendTo(new MinecraftClientTalkdistancePacket(entityID, map.get(entityID)), player);
+        }
+
         this.voiceChat.serverNetwork.dataManager.entityHandler.connected(player);
     }
 
