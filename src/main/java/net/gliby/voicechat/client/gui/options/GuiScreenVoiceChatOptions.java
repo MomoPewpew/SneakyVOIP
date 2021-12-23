@@ -133,7 +133,7 @@ public class GuiScreenVoiceChatOptions extends GuiScreen {
         this.buttonList.add(this.microphoneMode);
         this.buttonList.add(this.boostSlider);
         this.buttonList.add(this.voiceVolume);
-        this.buttonList.add(this.mutePlayer = new GuiCustomButton(897, centerW - 152, centerH + 73 - 55, 304, 20, I18n.format("menu.mutePlayers")));
+        //this.buttonList.add(this.mutePlayer = new GuiCustomButton(897, centerW - 152, centerH + 73 - 55, 304, 20, I18n.format("menu.mutePlayers")));
         this.buttonList.add(this.dropDown);
 
         if (this.voiceChat.getSettings().getDeviceHandler().isEmpty()) {
