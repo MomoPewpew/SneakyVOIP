@@ -39,8 +39,9 @@ public class MinecraftVoiceServer extends VoiceServer {
         VoiceChat.getDispatcher().sendTo(new MinecraftClientVoiceEndPacket(id), player);
     }
 
-	public void sendTalkdistance(int id, float mult) {
-		VoiceChat.getDispatcher().sendToAll(new MinecraftClientTalkdistancePacket(id, mult));
+	public void sendTalkdistance(int entityID, float mult) {
+		voiceChat.serverNetwork.dataManager.setMaxTalkDistanceMultiplier(entityID, mult);
+		VoiceChat.getDispatcher().sendToAll(new MinecraftClientTalkdistancePacket(entityID, mult));
 	}
 
     public boolean start() {

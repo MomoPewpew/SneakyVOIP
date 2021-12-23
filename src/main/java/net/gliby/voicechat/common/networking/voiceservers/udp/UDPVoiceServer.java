@@ -66,6 +66,7 @@ public class UDPVoiceServer extends VoiceAuthenticatedServer {
 
 	@Override
 	public void sendTalkdistance(int entityID, float mult) {
+		voiceChat.serverNetwork.dataManager.setMaxTalkDistanceMultiplier(entityID, mult);
 		this.sendPacketToAll(new UDPServerTalkDistancePacket(entityID, mult));
 	}
 
