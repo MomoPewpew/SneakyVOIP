@@ -26,7 +26,7 @@ public class ServerStreamManager {
     public List<UUID> mutedPlayers;
     public EntityHandler entityHandler;
     volatile boolean running;
-    private ConcurrentHashMap<Integer, Float> maxTalkDistanceMultipliers;
+    private ConcurrentHashMap<Integer, Float> maxTalkDistanceMultipliers = new ConcurrentHashMap<Integer, Float>();
 
     ServerStreamManager(VoiceChatServer voiceChat) {
         this.voiceChat = voiceChat;
