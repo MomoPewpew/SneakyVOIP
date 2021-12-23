@@ -6,6 +6,7 @@ import net.gliby.voicechat.common.VoiceChatServer;
 import net.gliby.voicechat.common.networking.ServerStreamManager;
 import net.gliby.voicechat.common.networking.voiceservers.EnumVoiceNetworkType;
 import net.gliby.voicechat.common.networking.voiceservers.VoiceAuthenticatedServer;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.StringUtils;
@@ -14,6 +15,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UDPVoiceServer extends VoiceAuthenticatedServer {
@@ -62,6 +64,11 @@ public class UDPVoiceServer extends VoiceAuthenticatedServer {
         }
     }
 
+	@Override
+	public void sendTalkdistance(int entityID, float mult) {
+		this.sendPacketToAll(new UDPServerTalkDistancePacket(entityID, mult));
+	}
+
     void sendPacket(UDPPacket packet, UDPClient client) {
         this.packetBuffer.writeByte(packet.id());
         packet.write(this.packetBuffer);
@@ -74,6 +81,16 @@ public class UDPVoiceServer extends VoiceAuthenticatedServer {
         }
 
         this.packetBuffer = ByteStreams.newDataOutput();
+    }
+
+    void sendPacketToAll(UDPPacket packet) {
+        List<EntityPlayer> players = FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld().playerEntities;
+
+        for (EntityPlayer player : players) {
+        	UDPClient client = this.clientMap.get(player.getEntityId());
+
+        	this.sendPacket(packet, client);
+        }
     }
 
     public void sendVoiceData(EntityPlayerMP player, int entityID, boolean global, byte[] samples, byte volume) {

@@ -49,6 +49,12 @@ public class UDPVoiceClientHandler implements Runnable {
         this.client.handleEnd(entityId);
     }
 
+    private void handleTalkdistance(ByteArrayDataInput in) {
+        int entityId = in.readInt();
+        float mult = in.readFloat();
+        this.client.handleTalkdistance(entityId, mult);
+    }
+
     public void read(byte[] data) {
         ByteArrayDataInput in = ByteStreams.newDataInput(data);
         byte id = in.readByte();
@@ -70,6 +76,9 @@ public class UDPVoiceClientHandler implements Runnable {
                 break;
             case 5:
                 this.handleChunkVoiceData(in);
+                break;
+            case 6:
+            	this.handleTalkdistance(in);
         }
     }
 

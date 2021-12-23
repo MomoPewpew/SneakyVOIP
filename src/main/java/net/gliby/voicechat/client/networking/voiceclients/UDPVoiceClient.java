@@ -8,9 +8,12 @@ import net.gliby.voicechat.client.sound.ClientStreamManager;
 import net.gliby.voicechat.common.PlayerProxy;
 import net.gliby.voicechat.common.networking.voiceservers.EnumVoiceNetworkType;
 import net.gliby.voicechat.common.networking.voiceservers.udp.UDPClientAuthenticationPacket;
+import net.gliby.voicechat.common.networking.voiceservers.udp.UDPClientTalkDistancePacket;
 import net.gliby.voicechat.common.networking.voiceservers.udp.UDPClientVoiceEnd;
 import net.gliby.voicechat.common.networking.voiceservers.udp.UDPClientVoicePacket;
 import net.gliby.voicechat.common.networking.voiceservers.udp.UDPPacket;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.text.TextComponentTranslation;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -67,6 +70,20 @@ public class UDPVoiceClient extends VoiceAuthenticatedClient {
         VoiceChatClient.getSoundManager().getSoundPreProcessor().process(entityID, data, chunkSize, direct, volume);
     }
 
+	@Override
+	public void handleTalkdistance(int entityID, float mult) {
+		final PlayerProxy proxy = this.soundManager.getPlayerData(entityID);
+
+        if (proxy != null)
+            proxy.setMaxTalkDistanceMultiplier(mult);
+
+        if (entityID == Minecraft.getMinecraft().player.getEntityId()) {
+        	int radius = (int) (mult * VoiceChat.getProxyInstance().getSettings().getSoundDistance());
+
+        	Minecraft.getMinecraft().player.sendStatusMessage(new TextComponentTranslation(Integer.toString(radius)), true);
+        }
+	}
+
     private void sendPacket(UDPPacket packet) {
         if (!this.datagramSocket.isClosed()) {
             this.packetBuffer.writeByte(packet.id());
@@ -91,6 +108,11 @@ public class UDPVoiceClient extends VoiceAuthenticatedClient {
                 this.sendPacket(new UDPClientVoicePacket(divider, samples));
         }
     }
+
+	@Override
+	public void sendTalkDistance(int entityID, float mult) {
+		this.sendPacket(new UDPClientTalkDistancePacket(mult));
+	}
 
     @Override
     public void start() {

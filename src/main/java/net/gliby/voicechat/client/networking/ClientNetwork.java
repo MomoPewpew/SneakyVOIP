@@ -56,6 +56,12 @@ public class ClientNetwork {
         }
     }
 
+    public void sendTalkDistance(int entityId, float talkDistanceMultiplier) {
+    	if (this.voiceClientExists()) {
+            this.voiceClient.sendTalkDistance(entityId, talkDistanceMultiplier);
+        }
+    }
+
     public VoiceClient startClientNetwork(EnumVoiceNetworkType type, String hash, String ip, int udpPort, int soundDist, int bufferSize, int soundQualityMin, int soundQualityMax, boolean showVoicePlates, boolean showVoiceIcons) {
         this.voiceChat.getSettings().resetQuality();
         if (this.connected) {

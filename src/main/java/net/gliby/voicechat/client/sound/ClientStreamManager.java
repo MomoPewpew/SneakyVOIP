@@ -143,7 +143,7 @@ public class ClientStreamManager {
         return "" + let;
     }
 
-    private PlayerProxy getPlayerData(int entityId) {
+    public PlayerProxy getPlayerData(int entityId) {
         PlayerProxy proxy = this.playerData.get(entityId);
         EntityPlayer entity = (EntityPlayer) this.mc.world.getEntityByID(entityId);
 

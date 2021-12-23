@@ -86,6 +86,8 @@ public class VoiceChat {
         DISPATCH.registerMessage(MinecraftClientEntityPositionPacket.class, MinecraftClientEntityPositionPacket.class, 5, Side.CLIENT);
         DISPATCH.registerMessage(MinecraftClientVoiceServerPacket.class, MinecraftClientVoiceServerPacket.class, 6, Side.CLIENT);
         DISPATCH.registerMessage(MinecraftClientVoiceAuthenticatedServer.class, MinecraftClientVoiceAuthenticatedServer.class, 7, Side.CLIENT);
+        DISPATCH.registerMessage(MinecraftServerTalkdistancePacket.class, MinecraftServerTalkdistancePacket.class, 8, Side.SERVER);
+        DISPATCH.registerMessage(MinecraftClientTalkdistancePacket.class, MinecraftClientTalkdistancePacket.class, 9, Side.CLIENT);
     }
 
     @Mod.EventHandler
