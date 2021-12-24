@@ -12,6 +12,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+
+import com.google.common.primitives.Floats;
 
 @SideOnly(Side.CLIENT)
 public class Settings {
@@ -20,12 +23,12 @@ public class Settings {
     private Device inputDevice;
     private float worldVolume = 1.0F;
     private float inputBoost = 0.0F;
-    private float uiOpacity = 1.0F;
+    private float uiOpacity = 0.0F;
     private int speakMode = 0;
     private int encodingMode = 0;
     private int minimumQuality = 0;
     private int maximumQuality = 10;
-    private float encodingQuality = 0.6F;
+    private float encodingQuality = 1.0F;
     private UIPosition uiPositionSpeak;
     private UIPosition uiPositionPlate;
     private boolean perceptualEnchantment = true;
@@ -33,11 +36,12 @@ public class Settings {
     private boolean snooperEnabled = false;
     private boolean volumeControl = true;
     private int maxSoundDistance = 63;
-    private boolean voicePlatesAllowed = true;
-    private boolean voiceIconsAllowed = true;
+    private boolean voicePlatesAllowed = false;
+    private boolean voiceIconsAllowed = false;
     private int bufferSize = 144;
     private int modPackId = 1;
     private final Configuration configuration;
+    private float[] maxTalkDistanceMultipliers = {0.5F, 1.0F, 2.0F};
 
     Settings(File file) {
         this.configuration = new Configuration(this, file);
@@ -284,4 +288,24 @@ public class Settings {
     public void setWorldVolume(float worldVolume) {
         this.worldVolume = worldVolume;
     }
+
+	public float getNextMaxTalkDistanceMultiplier(float current) {
+		if (this.maxTalkDistanceMultipliers.length == 0) return 1.0F;
+
+		int i = 0;
+
+		if (Floats.contains(maxTalkDistanceMultipliers, current)) {
+			i = Floats.indexOf(maxTalkDistanceMultipliers, current);
+		} else {
+			return this.maxTalkDistanceMultipliers[0];
+		}
+
+		if ((i + 1) >= this.maxTalkDistanceMultipliers.length) {
+			i = 0;
+		} else {
+			i++;
+		}
+
+		return this.maxTalkDistanceMultipliers[i];
+	}
 }

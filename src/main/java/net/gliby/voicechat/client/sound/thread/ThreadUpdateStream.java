@@ -47,7 +47,7 @@ public class ThreadUpdateStream implements Runnable {
                             sndSystem.setVolume(source, this.voiceChat.getSettings().getWorldVolume());
 
                         sndSystem.setAttenuation(source, 2);
-                        sndSystem.setDistOrRoll(source, (float) this.voiceChat.getSettings().getSoundDistance());
+                        sndSystem.setDistOrRoll(source, (stream.player.getMaxTalkDistanceMultiplier() * this.voiceChat.getSettings().getSoundDistance()));
                         stream.dirty = false;
                     }
 

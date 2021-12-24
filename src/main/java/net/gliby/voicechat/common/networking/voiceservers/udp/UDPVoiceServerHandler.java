@@ -57,6 +57,10 @@ public class UDPVoiceServerHandler {
         this.server.handleVoiceData(client.player, null, (byte) 0, client.player.getEntityId(), true);
     }
 
+    private void handleTalkdistance(UDPClient client, ByteArrayDataInput in) {
+        this.server.sendTalkdistance(client.player.getEntityId(), in.readFloat());
+    }
+
     public void read(byte[] data, final DatagramPacket packet) {
         final InetSocketAddress address = (InetSocketAddress) packet.getSocketAddress();
         final UDPClient client = this.clientNetworkMap.get(address);
@@ -74,6 +78,9 @@ public class UDPVoiceServerHandler {
                         break;
                     case 2:
                         UDPVoiceServerHandler.this.handleVoiceEnd(client);
+                        break;
+                    case 6:
+                    	UDPVoiceServerHandler.this.handleTalkdistance(client, in);
                 }
             }
         });

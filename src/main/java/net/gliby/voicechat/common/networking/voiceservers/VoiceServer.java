@@ -20,6 +20,8 @@ public abstract class VoiceServer implements Runnable {
 
     public abstract void sendVoiceEnd(EntityPlayerMP var1, int var2);
 
+    public abstract void sendTalkdistance(int var2, float var3);
+
     public abstract boolean start();
 
     public abstract void stop();

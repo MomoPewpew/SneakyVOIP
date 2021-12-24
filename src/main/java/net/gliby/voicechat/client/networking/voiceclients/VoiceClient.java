@@ -17,6 +17,8 @@ public abstract class VoiceClient implements Runnable {
 
     public abstract void handleEntityPosition(int var1, double var2, double var4, double var6);
 
+    public abstract void handleTalkdistance(int var1, float var2);
+
     public abstract void handlePacket(int var1, byte[] var2, int var3, boolean var4, byte var5);
 
     @Override
@@ -25,6 +27,8 @@ public abstract class VoiceClient implements Runnable {
     }
 
     public abstract void sendVoiceData(byte var1, byte[] var2, boolean var3);
+
+    public abstract void sendTalkDistance(int var1, float var2);
 
     public abstract void start();
 

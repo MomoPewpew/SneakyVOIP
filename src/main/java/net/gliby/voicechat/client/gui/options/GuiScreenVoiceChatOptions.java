@@ -19,7 +19,7 @@ public class GuiScreenVoiceChatOptions extends GuiScreen {
     private final VoiceChatClient voiceChat;
     private final MicrophoneTester tester;
     private GuiCustomButton advancedOptions;
-    private GuiCustomButton mutePlayer;
+    //private GuiCustomButton mutePlayer;
     private GuiBoostSlider boostSlider;
     private GuiBoostSlider voiceVolume;
     private GuiDropDownMenu dropDown;
@@ -68,7 +68,7 @@ public class GuiScreenVoiceChatOptions extends GuiScreen {
                 break;
             case 897:
                 if (!this.dropDown.dropDownMenu)
-                    this.mc.displayGuiScreen(new GuiScreenLocalMute(this, this.voiceChat));
+                    //this.mc.displayGuiScreen(new GuiScreenLocalMute(this, this.voiceChat));
                 break;
             case 898:
                 if (!this.dropDown.dropDownMenu)
@@ -133,16 +133,16 @@ public class GuiScreenVoiceChatOptions extends GuiScreen {
         this.buttonList.add(this.microphoneMode);
         this.buttonList.add(this.boostSlider);
         this.buttonList.add(this.voiceVolume);
-        this.buttonList.add(this.mutePlayer = new GuiCustomButton(897, centerW - 152, centerH + 73 - 55, 304, 20, I18n.format("menu.mutePlayers")));
+        //this.buttonList.add(this.mutePlayer = new GuiCustomButton(897, centerW - 152, centerH + 73 - 55, 304, 20, I18n.format("menu.mutePlayers")));
         this.buttonList.add(this.dropDown);
 
         if (this.voiceChat.getSettings().getDeviceHandler().isEmpty()) {
             this.dropDown.enabled = false;
             returnToGame.enabled = false;
             this.boostSlider.enabled = false;
-            this.mutePlayer.enabled = false;
+            //this.mutePlayer.enabled = false;
             this.microphoneMode.enabled = false;
-            this.mutePlayer.enabled = false;
+            //this.mutePlayer.enabled = false;
         }
 
         super.initGui();
@@ -197,6 +197,6 @@ public class GuiScreenVoiceChatOptions extends GuiScreen {
         this.voiceVolume.setDisplayString(I18n.format("menu.worldVolume") + ": " + (volume == 0F ? I18n.format("options.off") : (int) (volume * 100.0F) + "%"));
         this.boostSlider.setDisplayString(I18n.format("menu.boost") + ": " + ((int) (boost) <= 0 ? I18n.format("options.off") : (int) (boost) + "db"));
         this.advancedOptions.allowed = !this.dropDown.dropDownMenu;
-        this.mutePlayer.allowed = !this.dropDown.dropDownMenu;
+        //this.mutePlayer.allowed = !this.dropDown.dropDownMenu;
     }
 }

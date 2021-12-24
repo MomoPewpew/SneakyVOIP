@@ -12,6 +12,7 @@ public class PlayerProxy {
     private double z;
     private String entityName;
     public boolean usesEntity;
+    private float maxTalkDistanceMultiplier = 1.0F;
 
     public PlayerProxy(EntityPlayer player, int entityID, String name, double x, double y, double z) {
         this.player = player;
@@ -59,4 +60,12 @@ public class PlayerProxy {
             this.usesEntity = this.player != null;
         }
     }
+
+	public float getMaxTalkDistanceMultiplier() {
+		return this.maxTalkDistanceMultiplier;
+	}
+
+	public void setMaxTalkDistanceMultiplier(float maxTalkDistanceMultiplier) {
+		this.maxTalkDistanceMultiplier = maxTalkDistanceMultiplier;
+	}
 }

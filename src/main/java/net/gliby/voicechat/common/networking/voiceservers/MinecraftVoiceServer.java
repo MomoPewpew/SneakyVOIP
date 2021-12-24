@@ -3,6 +3,7 @@ package net.gliby.voicechat.common.networking.voiceservers;
 import net.gliby.voicechat.VoiceChat;
 import net.gliby.voicechat.common.VoiceChatServer;
 import net.gliby.voicechat.common.networking.packets.MinecraftClientEntityPositionPacket;
+import net.gliby.voicechat.common.networking.packets.MinecraftClientTalkdistancePacket;
 import net.gliby.voicechat.common.networking.packets.MinecraftClientVoiceEndPacket;
 import net.gliby.voicechat.common.networking.packets.MinecraftClientVoicePacket;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -37,6 +38,11 @@ public class MinecraftVoiceServer extends VoiceServer {
     public void sendVoiceEnd(EntityPlayerMP player, int id) {
         VoiceChat.getDispatcher().sendTo(new MinecraftClientVoiceEndPacket(id), player);
     }
+
+	public void sendTalkdistance(int entityID, float mult) {
+		voiceChat.serverNetwork.dataManager.setMaxTalkDistanceMultiplier(entityID, mult);
+		VoiceChat.getDispatcher().sendToAll(new MinecraftClientTalkdistancePacket(entityID, mult));
+	}
 
     public boolean start() {
         VoiceChatServer.getLogger().warn("Minecraft Networking is not recommended and is consider very slow, please setup UDP.");
