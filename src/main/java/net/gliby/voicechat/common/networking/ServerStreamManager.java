@@ -211,7 +211,7 @@ public class ServerStreamManager {
     }
 
 	public Float getMaxTalkDistanceMultiplier(int entityID) {
-		if (!this.maxTalkDistanceMultipliers.contains(entityID)) {
+		if (!this.maxTalkDistanceMultipliers.containsKey(entityID)) {
 			this.maxTalkDistanceMultipliers.put(entityID, 1.0F);
 		}
 
