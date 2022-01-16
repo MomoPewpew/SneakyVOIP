@@ -132,7 +132,7 @@ public class UDPVoiceClient extends VoiceAuthenticatedClient {
         VoiceChat.getLogger().info("Connected to UDP[" + this.host + ":" + this.port + "] voice server, requesting authentication.");
         this.autheticate();
 
-        while (running) {
+        while (running && this.datagramSocket != null && !this.datagramSocket.isClosed()) {
             byte[] packetBuffer = new byte[2048];
             DatagramPacket p = new DatagramPacket(packetBuffer, 2048);
 
