@@ -153,7 +153,9 @@ public class UDPVoiceClient extends VoiceAuthenticatedClient {
     public void stop() {
         running = false;
 
-        if (this.datagramSocket != null)
+        if (this.datagramSocket != null) {
             this.datagramSocket.close();
+            this.datagramSocket = null;
+        }
     }
 }
