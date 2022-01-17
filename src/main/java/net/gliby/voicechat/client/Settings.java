@@ -6,6 +6,8 @@ import net.gliby.voicechat.client.device.DeviceHandler;
 import net.gliby.voicechat.client.gui.EnumUIPlacement;
 import net.gliby.voicechat.client.gui.UIPosition;
 import net.gliby.voicechat.common.ModPackSettings;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -133,7 +135,13 @@ public class Settings {
     }
 
     public float getWorldVolume() {
-        return this.worldVolume;
+    	Float master = Minecraft.getMinecraft().gameSettings.getSoundLevel(SoundCategory.MASTER);
+
+    	if (master == 0) {
+    		return 0;
+    	} else {
+            return (this.worldVolume / master);
+    	}
     }
 
     public void init() {
