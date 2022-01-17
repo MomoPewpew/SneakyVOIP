@@ -77,7 +77,7 @@ public class Configuration {
 
         this.init.WriteBool("Game", "VolumeControl", this.settings.isVolumeControlled());
         this.init.WriteString("Audio", "InputDevice", this.settings.getInputDevice() != null ? this.settings.getInputDevice().getName() : "none");
-        this.init.WriteFloat("Audio", "WorldVolume", this.settings.getWorldVolume());
+        this.init.WriteFloat("Audio", "WorldVolume", this.settings.worldVolume);
         this.init.WriteFloat("Audio", "InputBoost", this.settings.getInputBoost());
         this.init.WriteFloat("Audio", "SpeakMode", (float) this.settings.getSpeakMode());
         this.init.WriteFloat("AdvancedAudio", "EncodingQuality", this.settings.getEncodingQuality());

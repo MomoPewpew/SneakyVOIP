@@ -118,8 +118,8 @@ public class GuiScreenVoiceChatOptions extends GuiScreen {
         this.dropDown = new GuiDropDownMenu(0, centerW - 151, centerH - 55, 148, 20, this.voiceChat.getSettings().getInputDevice() != null ? this.voiceChat.getSettings().getInputDevice().getName() : "None", array);
         this.microphoneMode = new GuiButton(5, centerW - 152, centerH + 25 - 55, 150, 20, I18n.format("menu.speakMode") + ": " + (this.voiceChat.getSettings().getSpeakMode() == 0 ? I18n.format("menu.speakModePushToTalk") : I18n.format("menu.speakModeToggleToTalk")));
         final GuiButton UIPosition = new GuiButton(4, centerW + 2, centerH + 25 - 55, 150, 20, I18n.format("menu.uiOptions"));
-        this.voiceVolume = new GuiBoostSlider(910, centerW + 2, centerH - 25 - 55, "", I18n.format("menu.worldVolume") + ": " + (this.voiceChat.getSettings().getWorldVolume() == 0.0F ? I18n.format("options.off") : (int) (this.voiceChat.getSettings().getWorldVolume() * 100.0F) + "%"), 0.0F);
-        this.voiceVolume.sliderValue = this.voiceChat.getSettings().getWorldVolume();
+        this.voiceVolume = new GuiBoostSlider(910, centerW + 2, centerH - 25 - 55, "", I18n.format("menu.worldVolume") + ": " + (this.voiceChat.getSettings().worldVolume == 0.0F ? I18n.format("options.off") : (int) (this.voiceChat.getSettings().getWorldVolume() * 100.0F) + "%"), 0.0F);
+        this.voiceVolume.sliderValue = this.voiceChat.getSettings().worldVolume;
         this.boostSlider = new GuiBoostSlider(900, centerW + 2, centerH - 55, "", I18n.format("menu.boost") + ": " + ((int) (this.voiceChat.getSettings().getInputBoost() * 5.0F) <= 0 ? I18n.format("options.off") : "" + (int) (this.voiceChat.getSettings().getInputBoost() * 5.0F) + "db"), 0.0F);
         this.boostSlider.sliderValue = this.voiceChat.getSettings().getInputBoost();
         this.advancedOptions = new GuiCustomButton(899, centerW + 2, centerH + 49 - 55, 150, 20, I18n.format("menu.advancedOptions"));
@@ -190,7 +190,7 @@ public class GuiScreenVoiceChatOptions extends GuiScreen {
     @Override
     public void updateScreen() {
         final float boost = this.voiceChat.getSettings().getInputBoost() * 5F;
-        final float volume = this.voiceChat.getSettings().getWorldVolume();
+        final float volume = this.voiceChat.getSettings().worldVolume;
 
         this.voiceChat.getSettings().setWorldVolume(this.voiceVolume.sliderValue);
         this.voiceChat.getSettings().setInputBoost(this.boostSlider.sliderValue);

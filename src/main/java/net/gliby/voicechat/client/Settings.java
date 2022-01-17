@@ -23,7 +23,7 @@ public class Settings {
     private final DeviceHandler deviceHandler = new DeviceHandler();
     private boolean debugMode;
     private Device inputDevice;
-    private float worldVolume = 1.0F;
+    public float worldVolume = 1.0F;
     private float inputBoost = 0.0F;
     private float uiOpacity = 0.0F;
     private int speakMode = 0;
