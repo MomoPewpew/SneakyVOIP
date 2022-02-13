@@ -156,6 +156,8 @@ public class VoiceChatServer {
     }
 
     public void stop() {
+    	if (this.serverNetwork == null) return;
+
         this.serverNetwork.stop();
 
         if (this.voiceServer instanceof VoiceAuthenticatedServer) {
