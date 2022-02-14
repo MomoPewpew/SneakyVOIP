@@ -25,7 +25,7 @@ public class Settings {
     private Device inputDevice;
     public float worldVolume = 1.0F;
     private float inputBoost = 0.0F;
-    private float uiOpacity = 0.0F;
+    private float uiOpacity = 1.0F;
     private int speakMode = 0;
     private int encodingMode = 0;
     private int minimumQuality = 0;
@@ -47,8 +47,8 @@ public class Settings {
 
     Settings(File file) {
         this.configuration = new Configuration(this, file);
-        this.uiPositionSpeak = new UIPosition(EnumUIPlacement.SPEAK, EnumUIPlacement.SPEAK.x, EnumUIPlacement.SPEAK.y, EnumUIPlacement.SPEAK.positionType, 1.0F);
-        this.uiPositionPlate = new UIPosition(EnumUIPlacement.VOICE_PLATES, EnumUIPlacement.VOICE_PLATES.x, EnumUIPlacement.VOICE_PLATES.y, EnumUIPlacement.VOICE_PLATES.positionType, 1.0F);
+        this.uiPositionSpeak = new UIPosition(EnumUIPlacement.SPEAK, EnumUIPlacement.SPEAK.x, EnumUIPlacement.SPEAK.y, EnumUIPlacement.SPEAK.positionType, 0.0F);
+        this.uiPositionPlate = new UIPosition(EnumUIPlacement.VOICE_PLATES, EnumUIPlacement.VOICE_PLATES.x, EnumUIPlacement.VOICE_PLATES.y, EnumUIPlacement.VOICE_PLATES.positionType, 0.3F);
     }
 
     public final int getBufferSize() {
