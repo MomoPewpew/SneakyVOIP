@@ -201,7 +201,7 @@ public class UdpServer {
                     this.mSocket = new MulticastSocket(this.getPort());
                 }
 
-                LOGGER.info("UDP Server established on port " + this.getPort());
+                LOGGER.info("UDP Server established on " + this.hostname + ":" + this.getPort());
 
                 try {
                     this.mSocket.setReceiveBufferSize(this.packet.getData().length);

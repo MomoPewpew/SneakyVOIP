@@ -56,12 +56,12 @@ public class ServerNetwork {
     private String retrieveExternalAddress() {
         VoiceChat.getLogger().info("Retrieving server address.");
 
-/*        try (BufferedReader in = new BufferedReader(new InputStreamReader(new URL("http://checkip.amazonaws.com").openStream()))) {
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(new URL("http://checkip.amazonaws.com").openStream()))) {
             return in.readLine();
         } catch (IOException e) {
-            e.printStackTrace();*/
+            e.printStackTrace();
             return "0.0.0.0";
-        //}
+        }
     }
 
     void sendEntityData(EntityPlayerMP player, int entityID, String username, double x, double y, double z) {
