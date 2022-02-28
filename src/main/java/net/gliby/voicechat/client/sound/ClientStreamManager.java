@@ -10,8 +10,12 @@ import net.minecraft.client.audio.SoundManager.SoundSystemStarterThread;
 import net.minecraft.client.gui.GuiScreenOptionsSounds;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.SoundCategory;
-import org.lwjgl.util.vector.Vector3f;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import ovr.paulscode.sound.libraries.SourceLWJGLOpenAL;
 
+import org.lwjgl.util.vector.Vector3f;
+import paulscode.sound.Library;
+import paulscode.sound.SoundSystem;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioFormat.Encoding;
 import java.util.ArrayList;
@@ -40,6 +44,7 @@ public class ClientStreamManager {
     private float BLOCKS;
     private float MOBS;
     private float ANIMALS;
+    private Library soundLibrary = null;
 
     public static AudioFormat getUniversalAudioFormat() {
         return universalAudioFormat;
@@ -130,11 +135,18 @@ public class ClientStreamManager {
 
         sndSystem.setPitch(identifier, 1.0F);
 
-        if (data.volume != -1) {
-            sndSystem.setVolume(identifier, this.voiceChat.getSettings().getWorldVolume() * (float) data.volume);
-        } else {
-            sndSystem.setVolume(identifier, this.voiceChat.getSettings().getWorldVolume());
+        SourceLWJGLOpenAL src = null;
+        while (src == null) {
+        	src = (SourceLWJGLOpenAL) getSoundLibrary().getSource(identifier);
         }
+
+        if (data.volume != -1) {
+            src.sourceVolume = (this.voiceChat.getSettings().getWorldVolume() * (float) data.volume);
+        } else {
+            src.sourceVolume = (this.voiceChat.getSettings().getWorldVolume());
+        }
+        src.positionChanged();
+
         this.addStreamSafe(new ClientStream(player, data.id, data.direct));
         this.giveStream(data);
     }
@@ -272,4 +284,15 @@ public class ClientStreamManager {
             this.volumeControlActive = false;
         }
     }
+
+	@SuppressWarnings("deprecation")
+	public Library getSoundLibrary() {
+		if (soundLibrary == null) {
+	        SoundSystemStarterThread sndSystem = this.mc.getSoundHandler().sndManager.sndSystem;
+
+			soundLibrary = ObfuscationReflectionHelper.getPrivateValue(SoundSystem.class, sndSystem, 4);
+		}
+
+		return soundLibrary;
+	}
 }

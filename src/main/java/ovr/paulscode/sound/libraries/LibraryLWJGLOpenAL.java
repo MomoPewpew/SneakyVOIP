@@ -532,7 +532,7 @@ public class LibraryLWJGLOpenAL extends Library {
 
     public void setMasterVolume(float value) {
         super.setMasterVolume(value);
-        AL10.alListenerf(4106, value);
+        AL10.alListenerf(4106, value * 999f);
         this.checkALError();
     }
 
