@@ -119,7 +119,9 @@ public class UDPVoiceServer extends VoiceAuthenticatedServer {
             if (StringUtils.isNullOrEmpty(mc.getServerHostname())) {
                 this.server = new UdpServer(VoiceChatServer.getLogger(), this.voiceChat.getServerSettings().getUDPPort());
             } else {
-                this.server = new UdpServer(VoiceChatServer.getLogger(), mc.getServerHostname(), this.voiceChat.getServerSettings().getUDPPort());
+            	String host = mc.getServerHostname();
+            	if (host.toLowerCase().equals("localhost")) host = "0.0.0.0";
+                this.server = new UdpServer(VoiceChatServer.getLogger(), host, this.voiceChat.getServerSettings().getUDPPort());
             }
         } else {
             this.server = new UdpServer(VoiceChatServer.getLogger(), this.voiceChat.getServerSettings().getUDPPort());

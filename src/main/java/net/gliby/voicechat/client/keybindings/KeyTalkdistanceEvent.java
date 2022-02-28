@@ -15,7 +15,11 @@ class KeyTalkDistanceEvent extends KeyEvent {
 
     @Override
     public void keyDown(KeyBinding kb, boolean tickEnd, boolean isRepeat) {
-    	int entityId = Minecraft.getMinecraft().player.getEntityId();
+    	Minecraft mc = Minecraft.getMinecraft();
+
+    	if (mc.currentScreen != null) return;
+
+    	int entityId = mc.player.getEntityId();
     	final PlayerProxy proxy = VoiceChatClient.getSoundManager().getPlayerData(entityId);
     	float currentDistance = proxy.getMaxTalkDistanceMultiplier();
     	float newDistance = this.voiceChat.getSettings().getNextMaxTalkDistanceMultiplier(currentDistance);

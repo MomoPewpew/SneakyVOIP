@@ -1,10 +1,13 @@
 package net.gliby.voicechat.client.sound.thread;
 
+import net.gliby.voicechat.VoiceChat;
 import net.gliby.voicechat.client.VoiceChatClient;
 import net.gliby.voicechat.client.sound.ClientStream;
 import net.gliby.voicechat.client.sound.ClientStreamManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundManager.SoundSystemStarterThread;
+import ovr.paulscode.sound.libraries.SourceLWJGLOpenAL;
+
 import org.lwjgl.util.vector.Vector3f;
 import ru.icosider.voicechat.AsyncCatcher;
 
@@ -40,11 +43,15 @@ public class ThreadUpdateStream implements Runnable {
                     if ((stream.needsEnd || stream.getLastTimeUpdatedMS() > 325) && !sndSystem.playing(source))
                         this.manager.killStream(stream);
 
+                    SourceLWJGLOpenAL src = (SourceLWJGLOpenAL) VoiceChat.getInstance().getProxyInstance().getSoundManager().getSoundLibrary().getSource(source);
+
                     if (stream.dirty) {
                         if (stream.volume >= 0)
-                            sndSystem.setVolume(source, this.voiceChat.getSettings().getWorldVolume() * (float) stream.volume * 0.01F);
+                        	src.sourceVolume = (this.voiceChat.getSettings().getWorldVolume() * (float) stream.volume * 0.01F);
                         else
-                            sndSystem.setVolume(source, this.voiceChat.getSettings().getWorldVolume());
+                        	src.sourceVolume = (this.voiceChat.getSettings().getWorldVolume());
+
+                        src.positionChanged();
 
                         sndSystem.setAttenuation(source, 2);
                         sndSystem.setDistOrRoll(source, (stream.player.getMaxTalkDistanceMultiplier() * this.voiceChat.getSettings().getSoundDistance()));
@@ -58,7 +65,12 @@ public class ThreadUpdateStream implements Runnable {
                         sndSystem.setPosition(source, (float) this.mc.player.posX, (float) this.mc.player.posY, (float) this.mc.player.posZ);
 
                     if (stream.volume >= 0)
-                        sndSystem.setVolume(source, this.voiceChat.getSettings().getWorldVolume() * (float) stream.volume * 0.01F);
+                        src.sourceVolume = (this.voiceChat.getSettings().getWorldVolume() * (float) stream.volume * 0.01F);
+                    else
+                        src.sourceVolume = this.voiceChat.getSettings().getWorldVolume();
+
+                    src.positionChanged();
+
                     AsyncCatcher.INSTANCE.executeClient(() -> stream.player.update(ThreadUpdateStream.this.mc.world));
                 }
 
