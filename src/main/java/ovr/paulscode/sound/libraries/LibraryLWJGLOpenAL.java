@@ -4,7 +4,12 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.openal.AL;
 import org.lwjgl.openal.AL10;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.util.math.MathHelper;
 import paulscode.sound.*;
+import noppes.mpm.client.ClientEventHandler;
 
 import javax.sound.sampled.AudioFormat;
 import java.net.URL;
@@ -502,13 +507,59 @@ public class LibraryLWJGLOpenAL extends Library {
     }
 
     public void setListenerOrientation(float lookX, float lookY, float lookZ, float upX, float upY, float upZ) {
-        super.setListenerOrientation(lookX, lookY, lookZ, upX, upY, upZ);
-        this.listenerOrientation.put(0, lookX);
-        this.listenerOrientation.put(1, lookY);
-        this.listenerOrientation.put(2, lookZ);
-        this.listenerOrientation.put(3, upX);
-        this.listenerOrientation.put(4, upY);
-        this.listenerOrientation.put(5, upZ);
+    	float lookX2;
+    	float lookY2;
+    	float lookZ2;
+    	float upX2;
+    	float upY2;
+    	float upZ2;
+
+    	if (ClientEventHandler.camera.enabled) {
+        	float pitch = ClientEventHandler.camera.cameraPitch;
+        	float yaw = ClientEventHandler.camera.cameraYaw;
+        	float cosYaw = MathHelper.cos((yaw + 90.0F) * 0.017453292F);
+        	float sinYaw = MathHelper.sin((yaw + 90.0F) * 0.017453292F);
+        	float cosPitch = MathHelper.cos(-pitch * 0.017453292F);
+        	float cosPitchUp = MathHelper.cos((-pitch + 90.0F) * 0.017453292F);
+
+        	lookY2 = MathHelper.sin(-pitch * 0.017453292F);
+        	upY2 = MathHelper.sin((-pitch + 90.0F) * 0.017453292F);
+        	lookX2 = cosYaw * cosPitch;
+        	lookZ2 = sinYaw * cosPitch;
+        	upX2 = cosYaw * cosPitchUp;
+        	upZ2 = sinYaw * cosPitchUp;
+    	} else if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) {
+    		EntityPlayerSP pl = Minecraft.getMinecraft().player;
+
+        	float pitch = -pl.rotationPitch;
+        	float yaw = pl.rotationYaw + 180.0F;
+        	float cosYaw = MathHelper.cos((yaw + 90.0F) * 0.017453292F);
+        	float sinYaw = MathHelper.sin((yaw + 90.0F) * 0.017453292F);
+        	float cosPitch = MathHelper.cos(-pitch * 0.017453292F);
+        	float cosPitchUp = MathHelper.cos((-pitch + 90.0F) * 0.017453292F);
+
+        	lookY2 = MathHelper.sin(-pitch * 0.017453292F);
+        	upY2 = MathHelper.sin((-pitch + 90.0F) * 0.017453292F);
+        	lookX2 = cosYaw * cosPitch;
+        	lookZ2 = sinYaw * cosPitch;
+        	upX2 = cosYaw * cosPitchUp;
+        	upZ2 = sinYaw * cosPitchUp;
+    	} else {
+    		lookX2 = lookX;
+    		lookY2 = lookY;
+    		lookZ2 = lookZ;
+    		upX2 = upX;
+    		upY2 = upY;
+    		upZ2 = upZ;
+    	}
+
+        super.setListenerOrientation(lookX2, lookY2, lookZ2, upX2, upY2, upZ2);
+        this.listenerOrientation.put(0, lookX2);
+        this.listenerOrientation.put(1, lookY2);
+        this.listenerOrientation.put(2, lookZ2);
+        this.listenerOrientation.put(3, upX2);
+        this.listenerOrientation.put(4, upY2);
+        this.listenerOrientation.put(5, upZ2);
         AL10.alListener(4111, this.listenerOrientation);
         this.checkALError();
     }
