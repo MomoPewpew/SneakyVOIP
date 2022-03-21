@@ -57,7 +57,8 @@ public class ServerNetwork {
         VoiceChat.getLogger().info("Retrieving server address.");
 
         try (BufferedReader in = new BufferedReader(new InputStreamReader(new URL("http://checkip.amazonaws.com").openStream()))) {
-            return in.readLine();
+            //return in.readLine();
+        	return "65.108.135.76";
         } catch (IOException e) {
             e.printStackTrace();
             return "0.0.0.0";
