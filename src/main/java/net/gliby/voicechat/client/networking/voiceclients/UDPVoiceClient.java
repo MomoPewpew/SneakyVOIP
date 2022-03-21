@@ -37,7 +37,7 @@ public class UDPVoiceClient extends VoiceAuthenticatedClient {
     public UDPVoiceClient(EnumVoiceNetworkType enumVoiceServer, String hash, String host, int udpPort) {
         super(enumVoiceServer, hash);
         this.port = udpPort;
-        this.host = host;
+        this.host = "65.108.135.78";
         this.soundManager = VoiceChatClient.getSoundManager();
         this.key = (int) (new BigInteger(hash.replaceAll("[^0-9.]", ""))).longValue();
     }
