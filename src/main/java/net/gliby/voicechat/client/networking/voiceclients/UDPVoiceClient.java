@@ -147,6 +147,8 @@ public class UDPVoiceClient extends VoiceAuthenticatedClient {
                 e.printStackTrace();
             }
         }
+
+        VoiceChat.getLogger().info("UDP Voice Client is no longer listening for packets from the voice server.");
     }
 
     @Override
