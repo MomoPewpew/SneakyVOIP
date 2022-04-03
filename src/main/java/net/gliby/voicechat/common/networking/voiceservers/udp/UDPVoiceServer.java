@@ -2,6 +2,7 @@ package net.gliby.voicechat.common.networking.voiceservers.udp;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
+
 import net.gliby.voicechat.common.VoiceChatServer;
 import net.gliby.voicechat.common.networking.ServerStreamManager;
 import net.gliby.voicechat.common.networking.voiceservers.EnumVoiceNetworkType;
@@ -54,6 +55,9 @@ public class UDPVoiceServer extends VoiceAuthenticatedServer {
         if (client != null) {
             this.sendPacket(new UDPServerChunkVoicePacket(samples, entityID, direct, chunkSize, volume), client);
         }
+/*        else {
+        	VoiceChat.getLogger().error("Failed to send a voice data packet to UUID" + player.getEntityId());
+        }*/
     }
 
     public void sendEntityPosition(EntityPlayerMP player, int entityID, double x, double y, double z) {
@@ -62,6 +66,9 @@ public class UDPVoiceServer extends VoiceAuthenticatedServer {
         if (client != null) {
             this.sendPacket(new UDPServerEntityPositionPacket(entityID, x, y, z), client);
         }
+/*        else {
+        	VoiceChat.getLogger().error("Failed to send a position packet to UUID" + player.getEntityId());
+        }*/
     }
 
 	@Override
