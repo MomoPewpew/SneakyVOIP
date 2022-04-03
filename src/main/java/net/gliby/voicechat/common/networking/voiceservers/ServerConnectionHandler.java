@@ -22,6 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ServerConnectionHandler {
     private final VoiceChatServer voiceChat;
     private final List<GameProfile> loggedIn;
+    private static List<String> occupiedHashes;
 
     public ServerConnectionHandler(VoiceChatServer vc) {
         this.voiceChat = vc;
@@ -53,11 +54,17 @@ public class ServerConnectionHandler {
 
             while (hash == null) {
                 try {
-                    hash = this.sha256(RandomStringUtils.random(32));
+                    hash = this.sha256(RandomStringUtils.random(16));
+
+                    while (occupiedHashes.contains(hash)) {
+                    	hash = this.sha256(RandomStringUtils.random(16));
+                    }
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
                 }
             }
+
+            occupiedHashes.add(hash);
             voiceServer.waitingAuth.put(hash, player);
             VoiceChat.getDispatcher().sendTo(new MinecraftClientVoiceAuthenticatedServer(this.voiceChat.getServerSettings().canShowVoicePlates(), this.voiceChat.getServerSettings().canShowVoiceIcons(), this.voiceChat.getServerSettings().getMinimumSoundQuality(), this.voiceChat.getServerSettings().getMaximumSoundQuality(), this.voiceChat.getServerSettings().getBufferSize(), this.voiceChat.getServerSettings().getSoundDistance(), this.voiceChat.getVoiceServer().getType().ordinal(), this.voiceChat.getServerSettings().getUDPPort(), hash, this.voiceChat.serverSettings.isUsingProxy() ? this.voiceChat.serverNetwork.getAddress() : ""), player);
         } else
