@@ -27,6 +27,7 @@ public class ServerConnectionHandler {
     public ServerConnectionHandler(VoiceChatServer vc) {
         this.voiceChat = vc;
         this.loggedIn = new ArrayList<>();
+        occupiedHashes = new ArrayList<String>();
     }
 
     @SubscribeEvent
