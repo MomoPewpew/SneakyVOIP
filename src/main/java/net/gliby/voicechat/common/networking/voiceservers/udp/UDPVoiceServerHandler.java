@@ -82,6 +82,8 @@ public class UDPVoiceServerHandler {
                     case 6:
                     	UDPVoiceServerHandler.this.handleTalkdistance(client, in);
                 }
+            } else if (id > 0) {
+            	VoiceChat.getLogger().error("Received packet id " + id + " from an unknown client.");
             }
         });
     }
